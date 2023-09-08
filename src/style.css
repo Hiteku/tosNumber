@@ -1,0 +1,80 @@
+body {
+  background-color: #333;
+}
+
+h1 {
+  margin-left: 15px;
+  color: white;
+}
+
+.content{
+  display: inline-block;
+  margin-left: 15px;
+}
+
+.sidebar {
+  display: inline-block;
+  width: 244px;
+  margin-left: 15px;
+  background-color: #555;
+  color: white;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.sidebar ul {
+  list-style: none;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+.sidebar ul li {
+  display: inline-block;
+  width: 20px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.sidebar ul li.active {
+  background-color: #777;
+}
+
+.image-wrapper {
+  display: inline-block;
+  margin: 5px;
+  text-align: left;
+}
+
+.image-wrapper img {
+  width: 50px;
+  cursor: pointer;
+}
+
+.image-wrapper img.selected {
+  border: 2px solid #ffcc00; /* 设置选中图像的边框颜色 */
+}
+
+.selected-image {
+  text-align: left;
+  margin-top: 20px;
+}
+
+.selected-image img {
+  width: 50px;
+}
+
+.styled-select {
+  background-color: #333; /* 背景顏色 */
+  color: #fff; /* 文字顏色 */
+  padding: 5px; /* 內邊距 */
+  border-radius: 10px; /* 圓角 */
+  border: none; /* 去除邊框 */
+  cursor: pointer; /* 游標 */
+}
+
+.styled-select option {
+  background-color: #444; /* 下拉選單選項的背景顏色 */
+  color: #fff; /* 下拉選單選項的文字顏色 */
+  border-radius: 10px; /* 下拉選單選項的圓角 */
+}
