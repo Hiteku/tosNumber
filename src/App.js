@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import data from './data'; // 引入資料
-import './style.css'; // 引入CSS文件
+import data from './data';
+import './style.css';
 
 function App() {
-  // 定義狀態變數
   const [selectedAttr, setSelectedAttr] = useState('暗'); // 選擇的屬性
   const [selectedImageId, setSelectedImageId] = useState(null); // 選擇的圖片ID
+  const [selectedImageBranch, setSelectedImageBranch] = useState(null); // 選擇的圖片Branch
   const [selectedOption, setSelectedOption] = useState('Cross-Shaped_2');
   const [filteredImages, setFilteredImages] = useState([]); // 過濾後的圖片列表
 
@@ -41,8 +41,9 @@ function App() {
   };
 
   // 處理圖片點擊的函數
-  const handleImageClick = (id) => {
+  const handleImageClick = (id, branch) => {
     setSelectedImageId(id);
+    setSelectedImageBranch(branch);
   };
 
   // 處理選項改變的函數
@@ -55,10 +56,13 @@ function App() {
     return `https://hiteku.github.io/img/tos/cards/icon/${id}i.png`;
   };
 
-  // 獲取大圖的URL
-  const getImageUrl = (id) => {
+  // 獲取轉法圖的URL
+  const getImageUrl = (id, branch) => {
     var add = ''
-    if (id === 2828) add = '/1st'
+    if (branch === 2)
+      add = '/1st'
+    else if (branch === 3)
+      add = '/T'
     return `https://hiteku.github.io/img/tos/number/${id}` + add + `/${selectedOption}.jpg`;
   };
 
@@ -76,7 +80,7 @@ function App() {
 
       setSelectedImageId(newSelectedImageId);
     } else {
-      setSelectedImageId(null); // 否則清除選擇的圖片ID
+      setSelectedImageId(null);
     }
 
     const imageElements = filteredData.map((item) => (
@@ -86,14 +90,13 @@ function App() {
           alt={`${item.id}`}
           width="50"
           className={selectedImageId === item.id ? 'selected' : ''}
-          onClick={() => handleImageClick(item.id)}
+          onClick={() => handleImageClick(item.id, item.branch)}
         />
       </div>
     ));
     setFilteredImages(imageElements);
   }, [selectedAttr, selectedImageId, selectedOption]);
 
-  // 獲取不重複的屬性標籤
   const attributeLabels = Array.from(new Set(data.map((item) => item.attr)));
 
   return (
@@ -104,7 +107,6 @@ function App() {
       <div className="container">
         <div className="sidebar">
           <ul>
-            {/* 渲染屬性標籤 */}
             {attributeLabels.map((attr) => (
               <li
                 key={attr}
@@ -132,13 +134,14 @@ function App() {
               id="options"
               value={selectedOption}
               onChange={(e) => handleOptionChange(e.target.value)}
-              className="styled-select" // 添加樣式
+              className="styled-select"
             >
               {[...Array(13).keys()].map((i) => (
                 <option key={i} value={i + 15}>
                   {i + 15}
                 </option>
               ))}
+              <option value="Cross-Shaped_1">單十字</option>
               <option value="Cross-Shaped_2">雙十字</option>
               <option value="Cross-Shaped_3">三十字</option>
             </select>
@@ -147,9 +150,8 @@ function App() {
         <div className="content">
           {selectedImageId && (
             <div className="selected-image">
-              {/* 顯示所選圖片 */}
               <img
-                src={getImageUrl(selectedImageId)}
+                src={getImageUrl(selectedImageId, selectedImageBranch)}
                 alt={`目前尚未有${selectedImageId}轉法`}
                 style={{ width: '200px' }}
               />
